@@ -1,0 +1,24 @@
+{%extends 'blog/base.html' %}
+
+{% block content %}
+<!-- f: SigninForm 객체, error: 아이디/비밀번호 틀린 경우 에러코드 -->
+{% if error %}
+	<p> {{error}} </p>
+{% endif %}
+
+<form action="" method="post">
+	{% csrf_token %}
+	<input type="hidden" name="nexturl" value="{{nexturl}}"> 
+	<!-- hidden: 다른 웹서버로 데이터를 숨겨서 보낼 때 사용  -->
+	
+	{{ f.as_p }}
+	
+	<input type="submit" value="로그인">
+</form>
+<a href="{% url 'social:begin' 'google-plus' %}">구글로 로그인하기</a>
+<!-- django1 우클릭해 django - migrate 클릭해 모델 클래스 DB에 저장하기. 
+다른 개발자가 만든 것이라 이미 migration은 돼 있음. 구글로 로그인하기 테스트 해보기 -->
+<a href="{% url 'cl:signup' %}">회원가입</a>
+<a href="{% url 'vote:index' %}">메인페이지로 돌아가기</a>
+<!-- urls.py로 이동해 기능 등록 -->
+{% endblock %}
